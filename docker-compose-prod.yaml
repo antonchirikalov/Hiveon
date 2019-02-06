@@ -1,0 +1,60 @@
+version: '3.5'
+services:
+  hiveon-api:
+    build: 
+      context: .
+      dockerfile: ./devops/hiveon-api/Dockerfile
+    image: registry.tor.ph/go/hiveon-api:${CI_PIPELINE_ID:-latest}
+    container_name: hiveon-api
+    links:
+      - influx:influx
+      - redis:redis
+    ports:
+      - "8090:8090"
+      - "8088:8080"
+    env_file:
+      - devops/.env
+  hiveon-consumer:
+    container_name: hiveon-consumer
+    image: registry.tor.ph/go/hiveon-api/go-minerdash-consumer:latest
+    links:
+      - redis
+      - influx
+  influx:
+#    build: ./devops/influx
+    image: influxdb:1.5-alpine
+    container_name: influx
+    env_file:
+      - devops/.env
+    ports:
+      - "127.0.0.1:8086:8086"
+      - "127.0.0.1:8083:8083"
+    volumes:
+      - /opt/influxdb/data:/var/lib/influxdb
+  redis:
+    image: redis
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: always
+    ports:
+      - "127.0.0.1:6379:6379"
+    environment:
+      TZ: "Europe/Kiev"
+      LANG: "C.UTF-8"
+    volumes:
+      - /opt/redis/data:/data
+      - /opt/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:

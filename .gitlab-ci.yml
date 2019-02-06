@@ -1,0 +1,56 @@
+image: registry.tor.ph/infra/d3:latest
+variables:
+    APP_IMAGE: ${DOCKER_REGISTRY_URL}/hiveon-api
+
+stages:
+  - build
+  - test
+  - deploy-dev
+  - deploy-prod
+
+before_script:
+  - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" ${CI_REGISTRY}
+
+build:
+  tags: [build,hiveon-dev,go]
+#  only:
+#    - dev
+#    - feature/*
+#    - bugfix/*
+#    - master
+  stage: build
+  script:
+    - docker pull ${CI_REGISTRY}/go/hiveon-api:base
+    - docker-compose build 
+    - docker-compose push
+  artifacts:
+    paths: 
+    - docker-compose.yaml
+
+
+test:
+  tags: [build,hiveon-dev]
+  stage: test
+  script:
+    - echo Testing
+
+deploy-dev:
+  when: manual
+  tags: [deploy,hiveon-dev]
+  stage: deploy-dev
+  script:
+    - docker-compose pull
+    - docker-compose up -d
+    - echo Deployed Version "${CI_PIPELINE_ID}"
+    - docker exec  hiveon-api sed -i 's/localhost\:8090/dev\.hiveon-api\.devopscli\.com\:8099/g' swaggerui/swagger.json
+    - docker restart hiveon-api
+deploy-prod:
+  when: manual
+  stage: deploy-prod
+  tags: [deploy,hiveon-api-prod]
+  script:
+    - docker-compose pull
+    - docker-compose -f docker-compose-prod.yaml up -d
+    - echo Deployed Version "${CI_PIPELINE_ID}"
+    - docker exec  hiveon-api sed -i 's/localhost\:8090/159\.69\.24\.56\:8090/g' swaggerui/swagger.json
+    - docker restart hiveon-api

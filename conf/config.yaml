@@ -1,0 +1,65 @@
+appname: hiveon-api
+httpport: 8090
+httpaddr: "127.0.0.1"
+
+sequelize2:
+  database: hiveos_eth
+  host: hiveos-eth-prod.cyzben5dhs1h.eu-central-1.rds.amazonaws.com
+  port: 3306
+  username: hiveos_eth_ro
+  password: 7C9RAXMGQKiOKZ1A
+
+sequelize3:
+  database: block
+  host: rm-2zefa4845bwys9fb9io.mysql.rds.aliyuncs.com
+  port: 3306
+  username: ethscan_read
+  password: OLyEwNnx75uWtGkI
+
+influx:
+  host: "127.0.0.1"
+  port: 8086
+  database: "minerdash"
+  username: "admin"
+  password: "UadZOn2Hsy1Dyt07"
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  db: 1
+  password: ""
+
+postgres:
+  host: "116.203.56.122"
+  port: "5432"
+  dbName: "oauth"
+  user: "postgres"
+  password: "postgres"
+
+
+security:
+  publicURL:  "/api/miner"
+  securedURL: "/api/private"
+  useCasbin: true
+
+oauth_introspect_url: "http://localhost:4445/oauth2/introspect"
+idp_api: "http://localhost:3000/api"
+
+app:
+  config:
+    pool:
+      workerState: 20m
+      pgOneDay: "26 hour"
+      poolZoom: "25h"
+      hashrate:
+        hashrateCul: 4000000000
+        hashrateCulDivider: 1200
+ZOOM_CONFIG:
+  d:
+    time: "25h"
+    zoom: "20m"
+
+WORKER_STAT_CONFIG:
+  d:
+    time: "24h"
+    zoom: "5m"
