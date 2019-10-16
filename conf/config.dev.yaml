@@ -7,22 +7,22 @@ sequelize2:
   database: hiveos_eth
   host: hiveos-eth-prod.cyzben5dhs1h.eu-central-1.rds.amazonaws.com
   port: 3306
-  username: hiveos_eth_ro
-  password: 7C9RAXMGQKiOKZ1A
+  username: 
+  password: 
 
 sequelize3:
   database: block
-  host: rm-2zefa4845bwys9fb9io.mysql.rds.aliyuncs.com
+  host: 
   port: 3306
-  username: ethscan_read
-  password: OLyEwNnx75uWtGkI
+  username: 
+  password: 
 
 influx:
   host: "influx"
   port: 8086
   database: "minerdash"
   username: "admin"
-  password: "UadZOn2Hsy1Dyt07"
+  password: 
   
 redis:
   host: "redis"
@@ -42,8 +42,8 @@ security:
   securedURL: "/api/private"
   useCasbin: true
 
-oauth_introspect_url: "http://116.203.58.232:4445/oauth2/introspect"
-idp_api: "http://localhost:3000/api"
+oauth_introspect_url: 
+idp_api: 
 
 
 app:
