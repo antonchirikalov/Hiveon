@@ -3,25 +3,25 @@ httpport: 8090
 httpaddr: "127.0.0.1"
 
 sequelize2:
-  database: hiveos_eth
-  host: hiveos-eth-prod.cyzben5dhs1h.eu-central-1.rds.amazonaws.com
+  database: 
+  host: 
   port: 3306
-  username: hiveos_eth_ro
-  password: 7C9RAXMGQKiOKZ1A
+  username: 
+  password: 
 
 sequelize3:
   database: block
   host: rm-2zefa4845bwys9fb9io.mysql.rds.aliyuncs.com
   port: 3306
-  username: ethscan_read
-  password: OLyEwNnx75uWtGkI
+  username: 
+  password: 
 
 influx:
   host: "127.0.0.1"
   port: 8086
   database: "minerdash"
   username: "admin"
-  password: "UadZOn2Hsy1Dyt07"
+  password: 
 
 redis:
   host: "127.0.0.1"
@@ -30,11 +30,11 @@ redis:
   password: ""
 
 postgres:
-  host: "116.203.56.122"
+  host: 
   port: "5432"
   dbName: "oauth"
-  user: "postgres"
-  password: "postgres"
+  user: 
+  password: 
 
 
 security:
@@ -42,8 +42,8 @@ security:
   securedURL: "/api/private"
   useCasbin: true
 
-oauth_introspect_url: "http://localhost:4445/oauth2/introspect"
-idp_api: "http://localhost:3000/api"
+oauth_introspect_url: 
+idp_api: 
 
 app:
   config:
